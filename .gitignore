@@ -1,0 +1,30 @@
+# Logs
+logs
+*.log
+npm-debug.log*
+
+# Dependencies
+node_modules
+dist
+dist-ssr
+*.local
+
+# Editor
+.vscode/*
+!.vscode/extensions.json
+.idea
+.DS_Store
+
+# Claude Code — lokal tilladelses-state (ikke i repoet)
+.claude/settings.local.json
+
+# Env — indeholder hemmeligheder, må aldrig committes
+.env
+.env.local
+.env.*.local
+
+# Netlify
+.netlify
+
+# TS build info
+*.tsbuildinfo
