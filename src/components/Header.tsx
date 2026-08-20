@@ -3,6 +3,7 @@ import { LogOut, BookOpen } from 'lucide-react'
 import { supabase } from '../lib/supabase'
 import { useAuth } from '../context/AuthContext'
 import { erAdmin } from '../types/wiki'
+import { AppSwitcher } from '../platform-nav/AppSwitcher'
 
 const navClass = ({ isActive }: { isActive: boolean }) =>
   [
@@ -42,6 +43,8 @@ export default function Header() {
 
         {/* Bruger + logout */}
         <div className="flex items-center gap-3 shrink-0">
+          {/* Diskret skift til Hub og brugerens øvrige SMU-apps */}
+          <AppSwitcher supabase={supabase} currentAppKey="wiki" />
           {profil && (
             <div className="text-right hidden sm:block leading-tight">
               <p className="text-white font-bold text-[13px] m-0">{profil.fuldt_navn ?? 'Unavngivet'}</p>
