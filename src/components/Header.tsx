@@ -4,6 +4,7 @@ import { supabase } from '../lib/supabase'
 import { useAuth } from '../context/AuthContext'
 import { erAdmin } from '../types/wiki'
 import { AppSwitcher } from '../platform-nav/AppSwitcher'
+import { appProductVersion } from '../lib/version'
 
 const navClass = ({ isActive }: { isActive: boolean }) =>
   [
@@ -43,6 +44,13 @@ export default function Header() {
 
         {/* Bruger + logout */}
         <div className="flex items-center gap-3 shrink-0">
+          {/* Diskret produktversion. Kilde: package.json (se lib/version.ts). */}
+          <span
+            className="hidden sm:inline text-[11px] font-semibold tabular-nums"
+            style={{ color: 'rgba(255,255,255,0.45)' }}
+          >
+            {appProductVersion()}
+          </span>
           {/* Diskret skift til Hub og brugerens øvrige SMU-apps */}
           <AppSwitcher supabase={supabase} currentAppKey="wiki" />
           {profil && (
