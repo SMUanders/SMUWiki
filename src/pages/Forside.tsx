@@ -7,7 +7,7 @@ import type { WikiKategori, WikiSide } from '../types/wiki'
 import { relativTid } from '../lib/format'
 
 export default function Forside() {
-  const { appAdmin } = useAuth()
+  const { appAdmin, appSkriv } = useAuth()
   const admin = appAdmin
   const [kategorier, setKategorier] = useState<WikiKategori[]>([])
   const [sider, setSider] = useState<WikiSide[]>([])
@@ -49,9 +49,11 @@ export default function Forside() {
           <h1 className="smu-page-title">SMU Wiki</h1>
           <p className="smu-meta text-[14px] mt-0.5">Find procedurer, politikker og how-to guides.</p>
         </div>
-        <Link to="/forslag/ny" className="smu-btn-primary inline-flex items-center gap-1.5">
-          <Plus size={15} /> Opret forslag
-        </Link>
+        {appSkriv && (
+          <Link to="/forslag/ny" className="smu-btn-primary inline-flex items-center gap-1.5">
+            <Plus size={15} /> Opret forslag
+          </Link>
+        )}
       </div>
 
       {/* Stor søgning */}
@@ -86,12 +88,16 @@ export default function Forside() {
           <p className="smu-meta text-[14px] max-w-md mx-auto mb-5">
             Der er endnu ingen sider. {admin
               ? 'Opret kategorier under Admin, og godkend de forslag der kommer ind — så vokser wikien.'
-              : 'Foreslå den første side, så en admin kan godkende og publicere den.'}
+              : appSkriv
+                ? 'Foreslå den første side, så en admin kan godkende og publicere den.'
+                : 'Siderne dukker op her, når de er publiceret.'}
           </p>
           <div className="flex items-center justify-center gap-2 flex-wrap">
-            <Link to="/forslag/ny" className="smu-btn-primary inline-flex items-center gap-1.5">
-              <Plus size={15} /> Opret forslag
-            </Link>
+            {appSkriv && (
+              <Link to="/forslag/ny" className="smu-btn-primary inline-flex items-center gap-1.5">
+                <Plus size={15} /> Opret forslag
+              </Link>
+            )}
             {admin && <Link to="/admin/kategorier" className="smu-btn-secondary">Opret kategorier</Link>}
           </div>
         </div>

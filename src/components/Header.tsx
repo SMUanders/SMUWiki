@@ -14,7 +14,7 @@ const navClass = ({ isActive }: { isActive: boolean }) =>
   ].join(' ')
 
 export default function Header() {
-  const { profil, appAdmin } = useAuth()
+  const { profil, appAdmin, appSkriv } = useAuth()
   const navigate = useNavigate()
   const admin = appAdmin
 
@@ -36,8 +36,8 @@ export default function Header() {
         {/* Navigation */}
         <nav className="flex items-center gap-1 flex-1 overflow-x-auto">
           <NavLink to="/" end className={navClass}>Forside</NavLink>
-          <NavLink to="/forslag/ny" className={navClass}>Opret forslag</NavLink>
-          <NavLink to="/mine-forslag" className={navClass}>Mine forslag</NavLink>
+          {appSkriv && <NavLink to="/forslag/ny" className={navClass}>Opret forslag</NavLink>}
+          {appSkriv && <NavLink to="/mine-forslag" className={navClass}>Mine forslag</NavLink>}
           {admin && <NavLink to="/admin" className={navClass}>Admin</NavLink>}
         </nav>
 

@@ -11,7 +11,7 @@ import VersionHistorik from '../components/VersionHistorik'
 
 export default function WikiSide() {
   const { slug } = useParams<{ slug: string }>()
-  const { appAdmin } = useAuth()
+  const { appAdmin, appSkriv } = useAuth()
   const admin = appAdmin
 
   const [side, setSide] = useState<WikiSideMedKategorier | null>(null)
@@ -59,9 +59,11 @@ export default function WikiSide() {
           <h1 className="smu-page-title">{side.titel}</h1>
           {side.beskrivelse && <p className="smu-meta text-[15px] mt-1">{side.beskrivelse}</p>}
         </div>
-        <Link to={`/side/${side.slug}/foreslag-aendring`} className="smu-btn-secondary inline-flex items-center gap-1.5 shrink-0">
-          <Pencil size={14} /> Foreslå ændring
-        </Link>
+        {appSkriv && (
+          <Link to={`/side/${side.slug}/foreslag-aendring`} className="smu-btn-secondary inline-flex items-center gap-1.5 shrink-0">
+            <Pencil size={14} /> Foreslå ændring
+          </Link>
+        )}
       </div>
 
       {/* Metadata */}

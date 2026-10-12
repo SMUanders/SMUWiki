@@ -12,6 +12,7 @@ import MineForslag from './pages/MineForslag'
 import AdminLayout from './pages/admin/AdminLayout'
 import AdminForslag from './pages/admin/AdminForslag'
 import AdminKategorier from './pages/admin/AdminKategorier'
+import KunSkriv from './components/KunSkriv'
 
 export default function App() {
   return (
@@ -24,9 +25,9 @@ export default function App() {
             <Route path="/" element={<Forside />} />
             <Route path="/kategori/:slug" element={<KategoriSide />} />
             <Route path="/side/:slug" element={<WikiSide />} />
-            <Route path="/side/:slug/foreslag-aendring" element={<AendringsForslag />} />
-            <Route path="/forslag/ny" element={<NytForslag />} />
-            <Route path="/mine-forslag" element={<MineForslag />} />
+            <Route path="/side/:slug/foreslag-aendring" element={<KunSkriv><AendringsForslag /></KunSkriv>} />
+            <Route path="/forslag/ny" element={<KunSkriv><NytForslag /></KunSkriv>} />
+            <Route path="/mine-forslag" element={<KunSkriv><MineForslag /></KunSkriv>} />
             <Route path="/admin" element={<AdminLayout />}>
               <Route index element={<AdminForslag />} />
               <Route path="kategorier" element={<AdminKategorier />} />
