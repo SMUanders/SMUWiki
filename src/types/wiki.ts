@@ -20,11 +20,6 @@ export interface Profil {
   aktiv: boolean
 }
 
-/** Admin er den eneste rolle med særrettigheder i Wiki V1. */
-export function erAdmin(profil: Profil | null): boolean {
-  return profil?.rolle === 'admin'
-}
-
 // ─── Kategorier ───
 export interface WikiKategori {
   id: string

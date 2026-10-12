@@ -2,7 +2,6 @@ import { NavLink, useNavigate } from 'react-router-dom'
 import { LogOut, BookOpen } from 'lucide-react'
 import { supabase } from '../lib/supabase'
 import { useAuth } from '../context/AuthContext'
-import { erAdmin } from '../types/wiki'
 import { AppSwitcher } from '../platform-nav/AppSwitcher'
 import { appProductVersion } from '../lib/version'
 
@@ -15,9 +14,9 @@ const navClass = ({ isActive }: { isActive: boolean }) =>
   ].join(' ')
 
 export default function Header() {
-  const { profil } = useAuth()
+  const { profil, appAdmin } = useAuth()
   const navigate = useNavigate()
-  const admin = erAdmin(profil)
+  const admin = appAdmin
 
   async function handleLogout() {
     await supabase.auth.signOut()

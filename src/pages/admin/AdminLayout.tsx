@@ -1,6 +1,5 @@
 import { NavLink, Navigate, Outlet } from 'react-router-dom'
 import { useAuth } from '../../context/AuthContext'
-import { erAdmin } from '../../types/wiki'
 
 const linkClass = ({ isActive }: { isActive: boolean }) =>
   [
@@ -9,10 +8,10 @@ const linkClass = ({ isActive }: { isActive: boolean }) =>
   ].join(' ')
 
 export default function AdminLayout() {
-  const { profil, loading } = useAuth()
+  const { loading, appAdmin } = useAuth()
 
   if (loading) return <p className="smu-meta text-sm">Indlæser…</p>
-  if (!erAdmin(profil)) return <Navigate to="/" replace />
+  if (!appAdmin) return <Navigate to="/" replace />
 
   return (
     <div className="flex flex-col sm:flex-row gap-6">

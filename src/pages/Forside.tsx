@@ -2,14 +2,13 @@ import { useEffect, useMemo, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { Search, Plus, FileText, FolderOpen, BookOpen } from 'lucide-react'
 import { useAuth } from '../context/AuthContext'
-import { erAdmin } from '../types/wiki'
 import { hentKategorier, hentPublicerede, hentSideKategoriKobling } from '../lib/wikiApi'
 import type { WikiKategori, WikiSide } from '../types/wiki'
 import { relativTid } from '../lib/format'
 
 export default function Forside() {
-  const { profil } = useAuth()
-  const admin = erAdmin(profil)
+  const { appAdmin } = useAuth()
+  const admin = appAdmin
   const [kategorier, setKategorier] = useState<WikiKategori[]>([])
   const [sider, setSider] = useState<WikiSide[]>([])
   const [kobling, setKobling] = useState<{ page_id: string; kategori_id: string }[]>([])

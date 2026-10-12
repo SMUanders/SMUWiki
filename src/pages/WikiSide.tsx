@@ -2,7 +2,6 @@ import { useEffect, useState } from 'react'
 import { Link, useParams } from 'react-router-dom'
 import { ArrowLeft, Pencil, Clock } from 'lucide-react'
 import { useAuth } from '../context/AuthContext'
-import { erAdmin } from '../types/wiki'
 import type { WikiSideMedKategorier, WikiSideVersion } from '../types/wiki'
 import { hentSideMedKategorier, harAfventendeForslag, hentVersioner } from '../lib/wikiApi'
 import { relativTid } from '../lib/format'
@@ -12,8 +11,8 @@ import VersionHistorik from '../components/VersionHistorik'
 
 export default function WikiSide() {
   const { slug } = useParams<{ slug: string }>()
-  const { profil } = useAuth()
-  const admin = erAdmin(profil)
+  const { appAdmin } = useAuth()
+  const admin = appAdmin
 
   const [side, setSide] = useState<WikiSideMedKategorier | null>(null)
   const [afventer, setAfventer] = useState(false)
@@ -29,7 +28,7 @@ export default function WikiSide() {
       setSide(s)
       setLoading(false)
       harAfventendeForslag(s.id).then(setAfventer).catch(() => {})
-      if (erAdmin(profil)) hentVersioner(s.id).then(setVersioner).catch(() => {})
+      if (appAdmin) hentVersioner(s.id).then(setVersioner).catch(() => {})
     }
     hent()
     // eslint-disable-next-line react-hooks/exhaustive-deps
