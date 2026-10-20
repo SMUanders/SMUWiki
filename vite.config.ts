@@ -2,6 +2,7 @@ import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
 import tailwindcss from '@tailwindcss/vite'
 import { readFileSync } from 'node:fs'
+import { platformUpdate } from './src/platform-update/vitePlatformUpdate'
 
 // Menneskelig PRODUKTVERSION — eneste sandhedskilde er package.json "version".
 // Indlejres som __APP_PRODUCT_VERSION__ og vises diskret i UI. Adskilt fra et
@@ -15,5 +16,6 @@ export default defineConfig({
   plugins: [
     tailwindcss(),
     react(),
+    platformUpdate(),
   ],
 })
