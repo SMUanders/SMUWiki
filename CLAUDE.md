@@ -14,5 +14,6 @@ designunivers** med resten. Følg `SMU_APP_STANDARD.md` + `docs/SMU_DESIGN_SYSTE
   fælles adgangsmodel (`har_app_adgang('wiki')` / `har_app_rolle('wiki', …)`) i RLS **og** i frontend.
   Godkend/afvis sker via SECURITY DEFINER-RPC'er med fast `search_path` og intern authz.
 - **Migrationer:** i den fælles hub `smu-os-v2/supabase/migrations/` (Wiki ejer sine `wiki_`-migrations logisk,
-  men de køres fra hubben via `supabase db push` — ikke en parallel historik, ikke SQL Editor som normal vej).
+  men de anvendes kun fra hubbens gate, altid DEV → LIVE: `node scripts/db-apply.mjs --env dev --yes` → verificér → rapport → STOP → efter GO `--env live --yes --bekraeft-live` (se `smu-os/docs/SUPABASE_MIGRATIONS.md`, TR-092) — ikke en parallel historik, ikke SQL Editor som normal vej,
+  aldrig `supabase link` eller rå `db push`).
 - Alt på dansk. Kør `tsc`/build/lint efter ændringer; skriv hvad der er ændret + hvad der skal testes manuelt.

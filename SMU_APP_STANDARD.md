@@ -69,9 +69,10 @@ Vi bygger **flere små, selvstændige SMU-apps**, der på sigt kombineres til é
 
 Supabase sporer migrationer i **én delt tabel** (`supabase_migrations.schema_migrations`) nøglet på versions-præfikset. Da flere apps deler databasen:
 
-- **Versionsnumre skal være globalt unikke på tværs af ALLE repos.** Ellers springer `supabase db push` en migration over (samme version findes allerede i ledgeren). Reservér gerne intervaller pr. app.
+- **Alle migrationer ligger i den fælles hub og anvendes kun gennem gaten, altid DEV → LIVE: `node scripts/db-apply.mjs --env dev --yes` → verificér → rapport → STOP → efter GO `--env live --yes --bekraeft-live` (se `smu-os/docs/SUPABASE_MIGRATIONS.md`, TR-092).** Aldrig `supabase link`, aldrig rå `supabase db push`.
+- **Versionsnumre skal være globalt unikke på tværs af ALLE repos** (én fælles ledger); gaten afviser remote-only og ændrede anvendte versioner.
 - **Rækkefølge håndteres manuelt** — CLI'en garanterer ikke tværgående orden. Kør afhængige migrationer (fx delt `profiler`-hærdning) før app-migrationer.
-- **Vælg én kanal pr. projekt:** enten alt via SQL Editor (versionsnumre = dokumentation) eller alt via `supabase db push` (versionsnumre skal være entydige). Bland ikke.
+- **SQL Editor er ikke normal/permanent migrationsvej**; en akut manuel ændring skal straks reconciles i hubben.
 - Gør migrationer **re-runbare**: `CREATE OR REPLACE FUNCTION/TRIGGER`, `DROP POLICY IF EXISTS` før `CREATE POLICY`, `IF NOT EXISTS` på tabeller/indexes.
 - Ny app rører aldrig en anden apps tabeller, policies, funktioner eller triggers.
 
