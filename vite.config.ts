@@ -18,4 +18,6 @@ export default defineConfig({
     react(),
     platformUpdate(),
   ],
+  // Fast port pr. app (porttabel i SMU_APP_STANDARD.md). strictPort: optaget port = fejl, ikke en anden port.
+  server: { port: 5183, strictPort: true },
 })
